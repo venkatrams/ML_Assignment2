@@ -1,40 +1,132 @@
-# ML Assignment 2 – Classification Models
+# ML Assignment 2 – Stroke Prediction Classification
 
-This repository contains the implementation of multiple
-machine learning classification models and a Streamlit
-web application for inference.
+This project implements multiple machine learning classification models for stroke prediction and deploys an interactive Streamlit web application for inference.
 
-Due to class imbalance in the stroke dataset, accuracy alone is misleading.
-Therefore, models were compared using Recall, F1, AUC, and MCC.
-Different classifiers exhibited different trade-offs between sensitivity and precision.
+The complete end-to-end workflow includes:
 
-Logistic Regression
-Strong baseline, high AUC, but very conservative → low recall
+- Data preprocessing (imputation, encoding, scaling)
+- Model training and evaluation
+- Comparison using multiple evaluation metrics
+- Model persistence using joblib (.pkl)
+- Streamlit web application (inference only)
+- Deployment on Streamlit Community Cloud
+- Execution verified on BITS Virtual Lab
 
-Naive Bayes
-Extremely high recall, suitable for screening, but poor precision
+---
 
-Decision Tree
-Best F1-score, balanced detection, interpretable splits
+## Dataset
 
-Random Forest
-Stable and robust, good AUC, but conservative on minority class
+The dataset used is the Kaggle Healthcare Stroke Dataset.
 
-Gradient Boosting
-Strong ranking ability (AUC), highest precision among ensemble models
+Target variable:
+- `stroke` (0 = No Stroke, 1 = Stroke)
 
+Due to class imbalance, accuracy alone is misleading.  
+Models were evaluated using:
 
-# Stroke Prediction – ML Assignment 2
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- AUC
+- MCC
 
-## How to run
-1. Install requirements:
-   pip install -r requirements.txt
+---
 
-2. Run Streamlit app:
-   streamlit run app.py
+## Implemented Models
 
-3. Upload dataset CSV to get predictions.
+The following classification models were implemented and compared:
 
-## Model
-- Gradient Boosting Classifier
-- Full preprocessing pipeline included
+- Logistic Regression
+- Naive Bayes
+- Decision Tree
+- Random Forest
+- Gradient Boosting
+
+Observations:
+
+- Logistic Regression: Strong baseline, high AUC, conservative predictions.
+- Naive Bayes: Very high recall, suitable for screening.
+- Decision Tree: Balanced detection and interpretable splits.
+- Random Forest: Robust performance and good AUC.
+- Gradient Boosting: Strong ranking performance and high precision.
+
+The trained models are saved in the `model/` directory as `.pkl` files.
+
+---
+
+## Project Structure
+
+```
+ML_Assignment2/
+│
+├── data/
+│   └── dataset.csv
+│
+├── model/
+│   ├── gradient_boosting_model.pkl
+│   └── decision_tree_model.pkl
+│
+├── train_and_save.py
+├── app.py
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## How to Run Locally
+
+1. Install dependencies:
+```
+pip install -r requirements.txt
+```
+
+2. Train and save models:
+```
+python train_and_save.py
+```
+
+3. Run Streamlit app:
+```
+streamlit run app.py
+```
+
+4. Upload test CSV file to generate predictions.
+
+---
+
+## Streamlit App Features
+
+The deployed application includes:
+
+- Dataset upload option (CSV)
+- Model selection dropdown
+- Display of evaluation metrics (Accuracy, Precision, Recall, F1)
+- Confusion Matrix
+- Classification Report
+- Inference-only prediction (no training inside app)
+
+Live App:
+https://mlassignment2-5jgwjvubmcwpj4bs4jbruz.streamlit.app/
+
+GitHub Repository:
+https://github.com/venkatrams/ML_Assignment2/
+
+---
+
+## BITS Virtual Lab Execution
+
+The project was executed in BITS Virtual Lab environment.  
+Model loading was verified successfully using:
+
+```
+python -c "import joblib; joblib.load('model/gradient_boosting_model.pkl'); print('MODEL LOAD OK')"
+```
+
+---
+
+## Author
+
+Venkatram Sunkara  
+BITS Pilani WILP – ML Assignment 2
